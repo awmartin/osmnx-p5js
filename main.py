@@ -10,6 +10,15 @@ import networkx as nx
 import json
 import shapely
 
+# OSMNX Settings Module
+# https://osmnx.readthedocs.io/en/stable/internals-reference.html#osmnx-settings-module
+
+# Disable the cache for Google App Engine.
+ox.settings.use_cache = False
+# This could also be setting the cache folder to /tmp, but that would take memory.
+# https://cloud.google.com/appengine/docs/standard/using-temp-files?tab=python
+ox.settings.cache_folder = "/tmp"
+
 app = Flask(__name__)
 
 def line_string_json(line_str_obj):
