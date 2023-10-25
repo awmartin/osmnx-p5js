@@ -4,7 +4,7 @@
 # This was a pain to get working because some object in a dependency, shapely.geometry.linestring.LineString
 # can't be serialized into JSON automatically, so I had to write a function to do so.
 
-from flask import Flask, jsonify, request, send_from_directory
+from flask import Flask, jsonify, request, send_from_directory, current_app
 import osmnx as ox
 import networkx as nx
 import json
@@ -52,5 +52,9 @@ def graph():
 def serve_static(filename):
     return send_from_directory(app.static_folder, filename)
 
+@app.route('/')
+def default():
+    return current_app.send_static_file('index.html')
+
 if __name__ == '__main__':
-    app.run(port=8080)
+    app.run(host='0.0.0.0', port=8080)
